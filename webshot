@@ -14,6 +14,7 @@ Options:
   --shot-size=<size>          The area to capture [default: window/window].
   --shot-offset=<offset>      Left, right, top and bottom offset
                               [default: 0/0/0/0].
+  --paper-size=<paperSize>    Paper size [default: A4/portrait].
   --phantom-path=<path>       The location of PhantomJS [default: phantomjs].
   --custom-header=<header>    Additional header (can be set multiple times).
   --default-white-background  White background if no background is set.
@@ -59,6 +60,7 @@ var args = docopt(__filename, {
   argv: argv,
   version: require('./package.json').version
 })
+console.log(argv)
 
 var url = args['<url>'] || '-'
 var dest = args['<dest>'] || '-'
@@ -67,6 +69,7 @@ var options = {}
 
 options.windowSize = parseSize(args['--window-size'])
 options.shotSize = parseSize(args['--shot-size'])
+options.paperSize = parsePaperSize(args['--paper-size'])
 
 // TODO: the default value can be removed once docopt is fixed
 options.shotOffset = parseOffset(args['--shot-offset'] || '0/0/0/0')
@@ -137,6 +140,16 @@ function parseOffset (offset) {
   }
 
   return {left: parts[0], right: parts[1], top: parts[2], bottom: parts[3]}
+}
+
+function parsePaperSize (paperSize) {
+  var parts = paperSize.split('/')
+
+  if (parts.length !== 2) {
+    throw new Error('Invalid paperSize (`format/orientation`): ' + paperSize)
+  }
+
+  return {format: parts[0], orientation: parts[1]}
 }
 
 function parseHeaders (headers) {
