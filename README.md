@@ -23,6 +23,7 @@ Options:
   --window-size=<size>        Browser window size [default: 1024/768].
   --shot-size=<size>          The area to capture [default: window/window].
   --shot-offset=<offset>      Left, right, top and bottom offset [default: 0/0/0/0].
+  --paper-size=<paperSize>    Size of the web page when rendered as a PDF. [default: A4/portrait]
   --phantom-path=<path>       The location of PhantomJS [default: phantomjs].
   --custom-header=<header>    Additional header (can be set multiple times).
   --default-white-background  White background if no background is set.
